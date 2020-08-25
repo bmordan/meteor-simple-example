@@ -6,7 +6,12 @@ function insertLink({ title, url }) {
 }
 
 Meteor.startup(() => {
-  // If the Links collection is empty, add some data.
+  if (!Accounts.findUserByUsername('bob')) {
+    Accounts.createUser({
+      username: 'bob',
+      password: '123123'
+    })
+  }
   if (LinksCollection.find().count() === 0) {
     insertLink({
       title: 'Do the Tutorial',
